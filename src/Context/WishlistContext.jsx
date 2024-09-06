@@ -101,7 +101,7 @@ export default function WishlistContextprovider({ children }) {
 
     useEffect(() => {
         getWishlist();
-    }, [wishlist?.count, localStorage.getItem('userToken')]);
+    }, [wishlist?.count]);
 
     return (
         <>
