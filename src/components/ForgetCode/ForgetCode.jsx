@@ -11,12 +11,12 @@ export default function ForgetCode() {
     const [apiError, setApiError] = useState(null);
 
     let navigate = useNavigate();
-    async function reseteCode(code) {
+    async function reseteCode({resetCode}) {
         try {
             setIsLoading(true);
             let data = await axios.post(`https://ecommerce.routemisr.com/api/v1/auth/verifyResetCode`,
                 {
-                    code
+                    resetCode
                 }
             );
             console.log(data);
@@ -30,12 +30,12 @@ export default function ForgetCode() {
     }
 
     let validationSchema = yup.object().shape({
-        code: yup.string().required('Please enter your code'),
+        resetCode: yup.string().required('Please enter your code'),
     })
 
     let formik = useFormik({
         initialValues: {
-            code: ''
+            resetCode: ''
         },
         validationSchema,
         onSubmit: reseteCode
@@ -50,22 +50,24 @@ export default function ForgetCode() {
                 <h2 className='text-center text-3xl text-green-700 font-semibold my-10'>Resete Your Account Password</h2>
                 {apiError ? <div className="p-2 mb-4 text-sm text-red-800 rounded-lg bg-red-100" role="alert">
                     {apiError}
+                    console.log(apiError)
+                    
                 </div> : null}
                 <form onSubmit={formik.handleSubmit}>
                     <div className="relative z-0 w-full mb-5 group">
-                        <input value={formik.values.code} onChange={formik.handleChange} onBlur={formik.handleBlur} type="text" name="code" id="code" className="block py-2.5 px-0 w-full text-sm text-slate-900 bg-transparent caret-green-600 border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " />
+                        <input value={formik.values.resetCode} onChange={formik.handleChange} onBlur={formik.handleBlur} type="text" name="resetCode" id="resetCode" className="block py-2.5 px-0 w-full text-sm text-slate-900 bg-transparent caret-green-600 border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " />
 
 
-                        <label htmlFor="code" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Enter the code :</label>
+                        <label htmlFor="resetCode" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Enter the Code :</label>
                     </div>
 
-                    {formik.errors.code && formik.touched.code ? <div>
-                        <p className="bg-red-200 text-red-500 text-sm py-1 px-2 rounded-lg my-5">{formik.errors.code}</p>
+                    {formik.errors.resetCode && formik.touched.resetCode ? <div>
+                        <p className="bg-red-200 text-red-500 text-sm py-1 px-2 rounded-lg my-5">{formik.errors.resetCode}</p>
                     </div> : null}
 
                     <div className='relative mb-20'>
                         <button type="submit"
-                            className={`absolute right-0 ${formik.isValid && formik.touched.code ? 'text-white bg-green-700 hover:bg-green-800 focus:ring-2 focus:outline-none font-medium rounded-lg text-sm w-auto px-5 py-2.5 text-center' : 'text-slate-900 bg-white focus:ring-2 focus:outline-none focus:ring-slate-900 font-medium rounded-lg border-2 border-slate-900 text-sm w-auto px-5 py-2.5 text-center'}`}>
+                            className={`absolute right-0 ${formik.isValid && formik.touched.resetCode ? 'text-white bg-green-700 hover:bg-green-800 focus:ring-2 focus:outline-none font-medium rounded-lg text-sm w-auto px-5 py-2.5 text-center' : 'text-slate-900 bg-white focus:ring-2 focus:outline-none focus:ring-slate-900 font-medium rounded-lg border-2 border-slate-900 text-sm w-auto px-5 py-2.5 text-center'}`}>
                             {isLoading ? <i className='fas fa-spinner fa-spin-pulse'></i> : 'Verify'}
                         </button>
                     </div>
