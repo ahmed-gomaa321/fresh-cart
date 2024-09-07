@@ -11,7 +11,7 @@ export default function Checkout() {
 
     let validationSchema = yup.object().shape({
         details: yup.string().required('details is required'),
-        phone: yup.string().trim().matches(/^(002)?01[0125][0-9]{8}/, 'must be egyptian number').required('phone is required'),
+        phone: yup.string().trim().matches(/^(\+201|01|00201)[0125][0-9]{8}/, 'must be egyptian number').required('phone is required'),
         city: yup.string().required('city is required'),
     })
 

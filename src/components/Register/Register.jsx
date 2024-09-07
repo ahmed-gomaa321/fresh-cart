@@ -39,7 +39,7 @@ export default function Register() {
     let validationSchema = yup.object().shape({
         name: yup.string().min(3, 'minlength is 3').max(15, 'maxlength is 10').required('name is required'),
         email: yup.string().email('invalid email').required('email is required'),
-        phone: yup.string().trim().matches(/^(002)?01[0125][0-9]{8}/, 'must be egyption number').required('phone is required'),
+        phone: yup.string().trim().matches(/^(\+201|01|00201)[0125][0-9]{8}/, 'must be egyption number').required('phone is required'),
         password: yup.string().matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
             , 'Minimum eight characters, at least one letter, one number and one special character:').required('password is required'),
         rePassword: yup.string().oneOf([yup.ref('password')], 'password and repassword not match').required('repassword is required'),
@@ -60,9 +60,9 @@ export default function Register() {
 
     return (
         <>
-        <Helmet>
-            <title>Register</title>
-        </Helmet>
+            <Helmet>
+                <title>Register</title>
+            </Helmet>
             <div className='container w-10/12 lg:w-8/12 py-4'>
                 <h2 className='text-3xl font-bold mb-6 text-green-600'>Register Now</h2>
                 {apiError ? <div className="p-2 mb-4 text-sm text-red-800 rounded-lg bg-red-100" role="alert">
